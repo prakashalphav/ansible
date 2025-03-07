@@ -1,0 +1,14 @@
+- name: Fetch logs from EC2 instance
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Fetch system log files
+      fetch:
+        src: "/var/log/{{ item }}"   # Log file or directory to fetch
+        dest: "./logs/"
+        flat: yes
+      loop:
+        - syslog
+        - auth.log
+        - messages
+
